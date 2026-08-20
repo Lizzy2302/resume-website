@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Max Mustermann – Business Consultant</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ================================================
+       ANSICHT 1: LANDING PAGE
+  ================================================ -->
+  <section id="landing" class="landing" aria-label="Willkommen">
+
+    <div class="landing__bg">
+      <img
+        src="images/hero.jpg"
+        alt="Hero Hintergrundbild"
+        class="landing__bg-img"
+        aria-hidden="true"
+      />
+      <div class="landing__overlay" aria-hidden="true"></div>
+    </div>
+
+    <div class="landing__content">
+      <p class="landing__eyebrow">Business &amp; Sales Consultant</p>
+      <h1 class="landing__name">Max<br />Mustermann</h1>
+      <p class="landing__tagline">
+        Ich bringe Softwareunternehmen näher an ihre Kunden –<br />
+        mit klarer Strategie, tiefem Produktverständnis und Überzeugungskraft.
+      </p>
+    </div>
+
+    <button class="landing__cta" id="ctaBtn" aria-label="Zum Portfolio">
+      <span class="landing__cta-text">Entdecken</span>
+      <span class="landing__cta-arrow" aria-hidden="true">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="5" x2="12" y2="19"/>
+          <polyline points="19 12 12 19 5 12"/>
+        </svg>
+      </span>
+    </button>
+
+  </section>
+
+
+  <!-- ================================================
+       ANSICHT 2: KACHEL-ÜBERSICHT
+  ================================================ -->
+  <section id="portfolio" class="portfolio" aria-label="Portfolio" hidden>
+
+    <header class="portfolio__header">
+      <button class="back-btn" id="backBtn" aria-label="Zurück zur Startseite">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="19" y1="12" x2="5" y2="12"/>
+          <polyline points="12 19 5 12 12 5"/>
+        </svg>
+        Startseite
+      </button>
+      <span class="portfolio__header-name">Max Mustermann</span>
+    </header>
+
+    <main class="grid" id="portfolioGrid">
+
+      <!-- 1. ÜBER MICH -->
+      <article class="card card--about" aria-label="Über mich">
+        <div class="card__body">
+          <h2 class="card__title">Über mich</h2>
+          <div class="about__inner">
+            <img
+              src="images/portrait.jpg"
+              alt="Portraitfoto Max Mustermann"
+              class="about__portrait"
+              loading="lazy"
+            />
+            <p class="card__text">
+              Ich bin Business Consultant mit Schwerpunkt auf CRM- und ERP-Lösungen
+              im B2B-Softwareumfeld. Mit über sieben Jahren Erfahrung begleite ich
+              Unternehmen – von der ersten Demo bis zum erfolgreichen Go-live.
+              Meine Stärke liegt darin, komplexe Softwareprodukte verständlich zu
+              machen und echten Mehrwert für den Kunden sichtbar zu machen.
+              Außerhalb des Büros findet man mich auf dem Tennisplatz oder beim
+              Lesen über neue Markttrends.
+            </p>
+          </div>
+        </div>
+      </article>
+
+      <!-- 2. WERDEGANG -->
+      <article class="card card--experience" aria-label="Berufserfahrung">
+        <div class="card__body">
+          <h2 class="card__title">Werdegang</h2>
+          <ol class="timeline" reversed>
+
+            <li class="timeline__item">
+              <div class="timeline__meta">
+                <strong class="timeline__company">Softline AG</strong>
+                <span class="timeline__period">2022 – heute</span>
+              </div>
+              <p class="timeline__role">Senior Business Consultant</p>
+              <ul class="timeline__bullets">
+                <li>Verantwortlich für einen Umsatz von 3,2 Mio. € p.a. im DACH-Segment</li>
+                <li>Aufbau und Pflege von C-Level-Beziehungen bei 20+ Enterprise-Kunden</li>
+              </ul>
+            </li>
+
+            <li class="timeline__item">
+              <div class="timeline__meta">
+                <strong class="timeline__company">NovaCRM GmbH</strong>
+                <span class="timeline__period">2019 – 2022</span>
+              </div>
+              <p class="timeline__role">Sales Consultant</p>
+              <ul class="timeline__bullets">
+                <li>Erfolgreiche Einführung eines neuen Sales-Playbooks im Team (12 Personen)</li>
+                <li>Durchschnittliche Abschlussquote 34 % (Branchenschnitt: 22 %)</li>
+              </ul>
+            </li>
+
+            <li class="timeline__item">
+              <div class="timeline__meta">
+                <strong class="timeline__company">Nexora Solutions</strong>
+                <span class="timeline__period">2017 – 2019</span>
+              </div>
+              <p class="timeline__role">Junior Business Analyst</p>
+              <ul class="timeline__bullets">
+                <li>Analyse von Kundenprozessen und Erstellung von Anforderungsdokumentationen</li>
+                <li>Unterstützung bei 5 Rollout-Projekten für mittelständische Kunden</li>
+              </ul>
+            </li>
+
+          </ol>
+        </div>
+      </article>
+
+      <!-- 3. SKILLS -->
+      <article class="card card--skills" aria-label="Fähigkeiten">
+        <div class="card__body">
+          <h2 class="card__title">Skills</h2>
+
+          <div class="skills__group">
+            <h3 class="skills__category">Fachlich</h3>
+            <div class="skills__tags">
+              <span class="tag">CRM-Beratung</span>
+              <span class="tag">Solution Selling</span>
+              <span class="tag">Presales</span>
+              <span class="tag">Enterprise Sales</span>
+              <span class="tag">Stakeholder Management</span>
+              <span class="tag">Prozessoptimierung</span>
+              <span class="tag">Bid Management</span>
+            </div>
+          </div>
+
+          <div class="skills__group">
+            <h3 class="skills__category">Tools &amp; Software</h3>
+            <div class="skills__tags">
+              <span class="tag">Salesforce</span>
+              <span class="tag">SAP S/4HANA</span>
+              <span class="tag">HubSpot</span>
+              <span class="tag">Microsoft Azure</span>
+              <span class="tag">Jira</span>
+              <span class="tag">Confluence</span>
+              <span class="tag">PowerBI</span>
+            </div>
+          </div>
+
+          <div class="skills__group">
+            <h3 class="skills__category">Sprachen</h3>
+            <div class="skills__tags">
+              <span class="tag">Deutsch – Muttersprache</span>
+              <span class="tag">Englisch – verhandlungssicher (C1)</span>
+              <span class="tag">Französisch – Grundkenntnisse (A2)</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 4a. PROJEKT 1 -->
+      <article class="card card--project" aria-label="Projekt: CRM-Migration">
+        <div class="card__img-wrap">
+          <img
+            src="images/project1.jpg"
+            alt="CRM-Migrationsprojekt bei einem Pharmaunternehmen"
+            class="card__img"
+            loading="lazy"
+          />
+        </div>
+        <div class="card__body">
+          <h2 class="card__title">CRM-Migration Pharma AG</h2>
+          <p class="card__text">
+            Vollständige Migration einer Legacy-CRM-Landschaft auf Salesforce Sales
+            Cloud für einen Pharmamittelständler mit 400 Nutzern.
+          </p>
+          <p class="card__impact">
+            <strong>Ergebnis:</strong> Reduktion der Datenpflegezeit um 40 %;
+            Rollout in 14 Wochen – 3 Wochen unter Plan.
+          </p>
+        </div>
+      </article>
+
+      <!-- 4b. PROJEKT 2 -->
+      <article class="card card--project" aria-label="Projekt: Sales-Playbook">
+        <div class="card__img-wrap">
+          <img
+            src="images/project2.jpg"
+            alt="Sales-Playbook Entwicklung"
+            class="card__img"
+            loading="lazy"
+          />
+        </div>
+        <div class="card__body">
+          <h2 class="card__title">Sales-Playbook DACH</h2>
+          <p class="card__text">
+            Entwicklung und Einführung eines skalierbaren Sales-Playbooks für das
+            DACH-Vertriebsteam eines SaaS-Anbieters mit 60 Mitarbeitern.
+          </p>
+          <p class="card__impact">
+            <strong>Ergebnis:</strong> Onboarding-Zeit neuer AEs von 12 auf 6 Wochen
+            gesenkt; Teamquote +18 % im Folgequartal.
+          </p>
+        </div>
+      </article>
+
+      <!-- 4c. PROJEKT 3 -->
+      <article class="card card--project" aria-label="Projekt: ERP-Einführung">
+        <div class="card__img-wrap">
+          <img
+            src="images/project3.jpg"
+            alt="ERP-Einführung im Maschinenbau"
+            class="card__img"
+            loading="lazy"
+          />
+        </div>
+        <div class="card__body">
+          <h2 class="card__title">ERP-Einführung Maschinenbau</h2>
+          <p class="card__text">
+            Begleitung der SAP S/4HANA-Einführung bei einem Maschinenbauer
+            (800 Mitarbeiter) als leitender Business Consultant auf Kundenseite.
+          </p>
+          <p class="card__impact">
+            <strong>Ergebnis:</strong> Budgeteinhaltung trotz 3-facher Scope-Erweiterung;
+            Kundenzufriedenheit 4,7/5 in Abschlussevaluierung.
+          </p>
+        </div>
+      </article>
+
+      <!-- 5. AUSBILDUNG -->
+      <article class="card card--education" aria-label="Ausbildung">
+        <div class="card__body">
+          <h2 class="card__title">Ausbildung</h2>
+          <ul class="education__list">
+
+            <li class="education__item">
+              <div class="education__meta">
+                <strong class="education__degree">M.Sc. Wirtschaftsinformatik</strong>
+                <span class="education__period">2015 – 2017</span>
+              </div>
+              <p class="education__institution">Universität Mannheim</p>
+              <p class="education__detail">Schwerpunkt: Enterprise Systems &amp; Digital Business</p>
+            </li>
+
+            <li class="education__item">
+              <div class="education__meta">
+                <strong class="education__degree">B.Sc. Betriebswirtschaftslehre</strong>
+                <span class="education__period">2012 – 2015</span>
+              </div>
+              <p class="education__institution">Hochschule München</p>
+              <p class="education__detail">Vertiefung: Marketing &amp; Vertriebsmanagement</p>
+            </li>
+
+            <li class="education__item">
+              <div class="education__meta">
+                <strong class="education__degree">Salesforce Certified Sales Cloud Consultant</strong>
+                <span class="education__period">2021</span>
+              </div>
+              <p class="education__institution">Salesforce Trailhead</p>
+            </li>
+
+          </ul>
+        </div>
+      </article>
+
+      <!-- 6. KONTAKT -->
+      <article class="card card--contact" aria-label="Kontakt">
+        <div class="card__body card__body--center">
+          <h2 class="card__title">Kontakt</h2>
+          <p class="card__text">
+            Du hast ein spannendes Projekt, eine offene Stelle oder möchtest einfach
+            in Kontakt treten? Ich freue mich auf deine Nachricht.
+          </p>
+          <a href="mailto:max.mustermann@example.com" class="contact__btn">
+            E-Mail schreiben
+          </a>
+          <div class="contact__links">
+            <a href="https://linkedin.com/in/maxmustermann" target="_blank" rel="noopener noreferrer" class="contact__link">LinkedIn</a>
+            <span class="contact__sep" aria-hidden="true">·</span>
+            <a href="https://xing.com/profile/maxmustermann" target="_blank" rel="noopener noreferrer" class="contact__link">Xing</a>
+          </div>
+        </div>
+      </article>
+
+    </main>
+
+    <footer class="portfolio__footer">
+      <p>&copy; 2026 Max Mustermann · Alle Rechte vorbehalten</p>
+    </footer>
+
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
