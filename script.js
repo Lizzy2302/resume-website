@@ -5,69 +5,63 @@ const portfolio = document.getElementById('portfolio');
 const ctaBtn    = document.getElementById('ctaBtn');
 const backBtn   = document.getElementById('backBtn');
 
-// ── Transition: Landing → Portfolio ──────────────────────────────────────────
+// ── Show portfolio (fade landing out, portfolio in) ───────────────────────────
 function showPortfolio() {
-  // 1. Fade out landing
+  if (portfolio.classList.contains('visible')) return;
+
+  portfolio.scrollTop = 0;
   landing.classList.add('fade-out');
 
-  // 2. After the CSS transition (700ms), hide landing and reveal portfolio
   setTimeout(() => {
-    landing.hidden = true;
-
-    portfolio.hidden = false;
-    portfolio.removeAttribute('hidden');
-
-    // Scroll to very top before making it visible
-    window.scrollTo({ top: 0, behavior: 'instant' });
-    portfolio.scrollTop = 0;
-
-    // Force a reflow so the browser registers the initial state before
-    // adding the class that triggers the fade-in transition.
-    // eslint-disable-next-line no-unused-expressions
-    portfolio.offsetHeight;
-
+    landing.style.display = 'none';
     portfolio.classList.add('visible');
-  }, 700);
+  }, 650);
 }
 
-// ── Transition: Portfolio → Landing ──────────────────────────────────────────
+// ── Show landing (reverse) ────────────────────────────────────────────────────
 function showLanding() {
   portfolio.classList.remove('visible');
+  landing.style.display = '';
 
-  // Wait for portfolio fade-out
-  setTimeout(() => {
-    portfolio.hidden = true;
-
-    landing.hidden = false;
-    landing.classList.remove('fade-out');
-
-    window.scrollTo({ top: 0, behavior: 'instant' });
-  }, 400);
+  // Small delay so landing is painted before fade-out class is removed
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      landing.classList.remove('fade-out');
+    });
+  });
 }
 
-// ── Event listeners ───────────────────────────────────────────────────────────
+// ── Scroll on landing page triggers transition ────────────────────────────────
+landing.addEventListener('wheel', (e) => {
+  if (e.deltaY > 0) showPortfolio();
+}, { passive: true });
+
+landing.addEventListener('touchstart', (e) => {
+  landing._touchStartY = e.touches[0].clientY;
+}, { passive: true });
+
+landing.addEventListener('touchend', (e) => {
+  if (landing._touchStartY - e.changedTouches[0].clientY > 40) showPortfolio();
+}, { passive: true });
+
+// ── CTA button ────────────────────────────────────────────────────────────────
 ctaBtn.addEventListener('click', showPortfolio);
 
-backBtn.addEventListener('click', showLanding);
-
-// Allow keyboard navigation (Enter / Space on CTA)
 ctaBtn.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter' || e.key === ' ') {
-    e.preventDefault();
-    showPortfolio();
-  }
+  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); showPortfolio(); }
 });
 
-// ── Subtle card entrance animation on scroll ─────────────────────────────────
-// Animates cards in as they scroll into view in the portfolio grid.
+// ── Back button ───────────────────────────────────────────────────────────────
+backBtn.addEventListener('click', showLanding);
+
+// ── Card entrance animations on scroll within portfolio ───────────────────────
 if ('IntersectionObserver' in window) {
   const cards = document.querySelectorAll('.card');
 
-  // Set initial hidden state via JS (keeps CSS clean when JS is off)
   cards.forEach((card) => {
-    card.style.opacity    = '0';
-    card.style.transform  = 'translateY(20px)';
-    card.style.transition = 'opacity 0.5s ease, transform 0.5s ease, box-shadow 0.25s ease, transform 0.25s ease';
+    card.style.opacity   = '0';
+    card.style.transform = 'translateY(18px)';
+    card.style.transition = 'opacity 0.45s ease, transform 0.45s ease, box-shadow 0.25s ease';
   });
 
   const observer = new IntersectionObserver(
@@ -80,7 +74,7 @@ if ('IntersectionObserver' in window) {
         }
       });
     },
-    { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    { root: portfolio, threshold: 0.08 }
   );
 
   cards.forEach((card) => observer.observe(card));

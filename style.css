@@ -210,26 +210,22 @@ a {
    PORTFOLIO VIEW
 ================================================ */
 .portfolio {
-  min-height: 100vh;
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-  pointer-events: none;
-  /* Keep it out of layout flow until visible so there's no blank scroll area */
+  /* Always in fixed layer, behind landing initially */
   position: fixed;
   inset: 0;
   overflow-y: auto;
   background: var(--bg);
-  z-index: 10;
+  z-index: 5;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.55s ease;
 }
 
 .portfolio.visible {
   opacity: 1;
-  transform: translateY(0);
   pointer-events: auto;
-  /* Restore to normal flow once visible */
-  position: static;
-  overflow-y: visible;
+  /* Lift above landing so it's scrollable */
+  z-index: 20;
 }
 
 /* Header bar */
@@ -241,7 +237,7 @@ a {
   align-items: center;
   justify-content: space-between;
   padding: 14px clamp(16px, 4vw, 48px);
-  background: rgba(248, 248, 247, 0.90);
+  background: rgba(248, 248, 247, 0.95);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
