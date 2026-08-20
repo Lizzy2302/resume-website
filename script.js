@@ -249,7 +249,8 @@ function promptForToken() {
     input.focus();
     overlay.querySelector('#tokenCancel').onclick = () => { overlay.remove(); resolve(null); };
     overlay.querySelector('#tokenConfirm').onclick = () => {
-      const val = input.value.trim();
+      // Strip all non-ASCII characters that are invalid in HTTP headers
+      const val = input.value.replace(/[^\x21-\x7e]/g, '').trim();
       if (!val) { input.style.borderColor = 'red'; return; }
       overlay.remove();
       resolve(val);
@@ -263,6 +264,7 @@ async function saveToGitHub() {
   const edits = collectEdits();
 
   let token = localStorage.getItem(TOKEN_KEY);
+  if (token) token = token.replace(/[^\x21-\x7e]/g, '').trim();
   if (!token) {
     token = await promptForToken();
     if (!token) return;
