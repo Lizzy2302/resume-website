@@ -215,12 +215,21 @@ a {
   transform: translateY(30px);
   transition: opacity 0.6s ease, transform 0.6s ease;
   pointer-events: none;
+  /* Keep it out of layout flow until visible so there's no blank scroll area */
+  position: fixed;
+  inset: 0;
+  overflow-y: auto;
+  background: var(--bg);
+  z-index: 10;
 }
 
 .portfolio.visible {
   opacity: 1;
   transform: translateY(0);
   pointer-events: auto;
+  /* Restore to normal flow once visible */
+  position: static;
+  overflow-y: visible;
 }
 
 /* Header bar */
@@ -269,19 +278,27 @@ a {
 .grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: auto auto auto auto;
   gap: var(--gap);
   padding: clamp(20px, 4vw, 48px) clamp(16px, 4vw, 48px);
   max-width: 1400px;
   margin: 0 auto;
 }
 
-/* Grid placement — 12-column layout */
-.card--about      { grid-column: span 8; }
-.card--skills     { grid-column: span 4; }
-.card--experience { grid-column: span 12; }
-.card--project    { grid-column: span 4; }
-.card--education  { grid-column: span 5; }
-.card--contact    { grid-column: span 7; }
+/* Grid placement — each row sums to exactly 12 columns
+   Row 1: About (8) + Skills (4)
+   Row 2: Experience (12)
+   Row 3: Project1 (4) + Project2 (4) + Project3 (4)
+   Row 4: Education (5) + Contact (7)
+*/
+.card--about      { grid-column: span 8;  grid-row: 1; }
+.card--skills     { grid-column: span 4;  grid-row: 1; }
+.card--experience { grid-column: span 12; grid-row: 2; }
+.card--project-1  { grid-column: span 4;  grid-row: 3; }
+.card--project-2  { grid-column: span 4;  grid-row: 3; }
+.card--project-3  { grid-column: span 4;  grid-row: 3; }
+.card--education  { grid-column: span 5;  grid-row: 4; }
+.card--contact    { grid-column: span 7;  grid-row: 4; }
 
 /* ================================================
    CARDS
@@ -462,22 +479,26 @@ a {
 /* ================================================
    PROJECT CARDS
 ================================================ */
-.card--project .card__img-wrap {
+.card--project-1 .card__img-wrap,
+.card--project-2 .card__img-wrap,
+.card--project-3 .card__img-wrap {
   height: 180px;
   overflow: hidden;
 }
 
-.card--project .card__img {
+.card--project-1 .card__img,
+.card--project-2 .card__img,
+.card--project-3 .card__img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.4s ease;
-
-  /* Fallback gradient shown when image is missing */
   background: linear-gradient(135deg, #dbeafe 0%, #ede9fe 100%);
 }
 
-.card--project:hover .card__img {
+.card--project-1:hover .card__img,
+.card--project-2:hover .card__img,
+.card--project-3:hover .card__img {
   transform: scale(1.04);
 }
 
@@ -612,19 +633,23 @@ a {
    RESPONSIVE — TABLET  (max 960px)
 ================================================ */
 @media (max-width: 960px) {
-  .card--about      { grid-column: span 12; }
-  .card--skills     { grid-column: span 12; }
-  .card--experience { grid-column: span 12; }
-  .card--project    { grid-column: span 6; }
-  .card--education  { grid-column: span 12; }
-  .card--contact    { grid-column: span 12; }
+  .card--about      { grid-column: span 12; grid-row: auto; }
+  .card--skills     { grid-column: span 12; grid-row: auto; }
+  .card--experience { grid-column: span 12; grid-row: auto; }
+  .card--project-1,
+  .card--project-2,
+  .card--project-3  { grid-column: span 6;  grid-row: auto; }
+  .card--education  { grid-column: span 12; grid-row: auto; }
+  .card--contact    { grid-column: span 12; grid-row: auto; }
 }
 
 /* ================================================
    RESPONSIVE — MOBILE  (max 600px)
 ================================================ */
 @media (max-width: 600px) {
-  .card--project { grid-column: span 12; }
+  .card--project-1,
+  .card--project-2,
+  .card--project-3 { grid-column: span 12; }
 
   .about__inner {
     flex-direction: column;

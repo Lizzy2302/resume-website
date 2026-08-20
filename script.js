@@ -14,8 +14,12 @@ function showPortfolio() {
   setTimeout(() => {
     landing.hidden = true;
 
-    portfolio.hidden  = false;
+    portfolio.hidden = false;
     portfolio.removeAttribute('hidden');
+
+    // Scroll to very top before making it visible
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    portfolio.scrollTop = 0;
 
     // Force a reflow so the browser registers the initial state before
     // adding the class that triggers the fade-in transition.
@@ -23,9 +27,6 @@ function showPortfolio() {
     portfolio.offsetHeight;
 
     portfolio.classList.add('visible');
-
-    // Scroll to top in case the user had scrolled
-    window.scrollTo({ top: 0, behavior: 'instant' });
   }, 700);
 }
 
