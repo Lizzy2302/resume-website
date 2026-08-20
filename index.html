@@ -24,10 +24,10 @@
     </div>
 
     <div class="landing__content">
-      <p class="landing__eyebrow">Business &amp; Sales Consultant</p>
-      <h1 class="landing__name">Max<br />Mustermann</h1>
-      <p class="landing__tagline">
-        Ich bringe Softwareunternehmen näher an ihre Kunden –<br />
+      <p class="landing__eyebrow" data-editable="eyebrow">Business &amp; Sales Consultant</p>
+      <h1 class="landing__name" data-editable="name">Max<br />Mustermann</h1>
+      <p class="landing__tagline" data-editable="tagline">
+        Ich bringe Softwareunternehmen näher an ihre Kunden –
         mit klarer Strategie, tiefem Produktverständnis und Überzeugungskraft.
       </p>
     </div>
@@ -58,7 +58,7 @@
         </svg>
         Startseite
       </button>
-      <span class="portfolio__header-name">Max Mustermann</span>
+      <span class="portfolio__header-name" data-editable="header-name">Max Mustermann</span>
     </header>
 
     <main class="grid" id="portfolioGrid">
@@ -74,7 +74,7 @@
               class="about__portrait"
               loading="lazy"
             />
-            <p class="card__text">
+            <p class="card__text" data-editable="about-text">
               Ich bin Business Consultant mit Schwerpunkt auf CRM- und ERP-Lösungen
               im B2B-Softwareumfeld. Mit über sieben Jahren Erfahrung begleite ich
               Unternehmen – von der ersten Demo bis zum erfolgreichen Go-live.
@@ -95,37 +95,37 @@
 
             <li class="timeline__item">
               <div class="timeline__meta">
-                <strong class="timeline__company">Softline AG</strong>
-                <span class="timeline__period">2022 – heute</span>
+                <strong class="timeline__company" data-editable="job1-company">Softline AG</strong>
+                <span class="timeline__period" data-editable="job1-period">2022 – heute</span>
               </div>
-              <p class="timeline__role">Senior Business Consultant</p>
+              <p class="timeline__role" data-editable="job1-role">Senior Business Consultant</p>
               <ul class="timeline__bullets">
-                <li>Verantwortlich für einen Umsatz von 3,2 Mio. € p.a. im DACH-Segment</li>
-                <li>Aufbau und Pflege von C-Level-Beziehungen bei 20+ Enterprise-Kunden</li>
+                <li data-editable="job1-bullet1">Verantwortlich für einen Umsatz von 3,2 Mio. € p.a. im DACH-Segment</li>
+                <li data-editable="job1-bullet2">Aufbau und Pflege von C-Level-Beziehungen bei 20+ Enterprise-Kunden</li>
               </ul>
             </li>
 
             <li class="timeline__item">
               <div class="timeline__meta">
-                <strong class="timeline__company">NovaCRM GmbH</strong>
-                <span class="timeline__period">2019 – 2022</span>
+                <strong class="timeline__company" data-editable="job2-company">NovaCRM GmbH</strong>
+                <span class="timeline__period" data-editable="job2-period">2019 – 2022</span>
               </div>
-              <p class="timeline__role">Sales Consultant</p>
+              <p class="timeline__role" data-editable="job2-role">Sales Consultant</p>
               <ul class="timeline__bullets">
-                <li>Erfolgreiche Einführung eines neuen Sales-Playbooks im Team (12 Personen)</li>
-                <li>Durchschnittliche Abschlussquote 34 % (Branchenschnitt: 22 %)</li>
+                <li data-editable="job2-bullet1">Erfolgreiche Einführung eines neuen Sales-Playbooks im Team (12 Personen)</li>
+                <li data-editable="job2-bullet2">Durchschnittliche Abschlussquote 34 % (Branchenschnitt: 22 %)</li>
               </ul>
             </li>
 
             <li class="timeline__item">
               <div class="timeline__meta">
-                <strong class="timeline__company">Nexora Solutions</strong>
-                <span class="timeline__period">2017 – 2019</span>
+                <strong class="timeline__company" data-editable="job3-company">Nexora Solutions</strong>
+                <span class="timeline__period" data-editable="job3-period">2017 – 2019</span>
               </div>
-              <p class="timeline__role">Junior Business Analyst</p>
+              <p class="timeline__role" data-editable="job3-role">Junior Business Analyst</p>
               <ul class="timeline__bullets">
-                <li>Analyse von Kundenprozessen und Erstellung von Anforderungsdokumentationen</li>
-                <li>Unterstützung bei 5 Rollout-Projekten für mittelständische Kunden</li>
+                <li data-editable="job3-bullet1">Analyse von Kundenprozessen und Erstellung von Anforderungsdokumentationen</li>
+                <li data-editable="job3-bullet2">Unterstützung bei 5 Rollout-Projekten für mittelständische Kunden</li>
               </ul>
             </li>
 
@@ -140,7 +140,7 @@
 
           <div class="skills__group">
             <h3 class="skills__category">Fachlich</h3>
-            <div class="skills__tags">
+            <div class="skills__tags" data-editable="skills-fachlich" data-editable-type="tags">
               <span class="tag">CRM-Beratung</span>
               <span class="tag">Solution Selling</span>
               <span class="tag">Presales</span>
@@ -153,7 +153,7 @@
 
           <div class="skills__group">
             <h3 class="skills__category">Tools &amp; Software</h3>
-            <div class="skills__tags">
+            <div class="skills__tags" data-editable="skills-tools" data-editable-type="tags">
               <span class="tag">Salesforce</span>
               <span class="tag">SAP S/4HANA</span>
               <span class="tag">HubSpot</span>
@@ -166,7 +166,7 @@
 
           <div class="skills__group">
             <h3 class="skills__category">Sprachen</h3>
-            <div class="skills__tags">
+            <div class="skills__tags" data-editable="skills-sprachen" data-editable-type="tags">
               <span class="tag">Deutsch – Muttersprache</span>
               <span class="tag">Englisch – verhandlungssicher (C1)</span>
               <span class="tag">Französisch – Grundkenntnisse (A2)</span>
@@ -175,7 +175,7 @@
         </div>
       </article>
 
-      <!-- 5. AUSBILDUNG -->
+      <!-- 4. AUSBILDUNG -->
       <article class="card card--education" aria-label="Ausbildung">
         <div class="card__body">
           <h2 class="card__title">Ausbildung</h2>
@@ -183,49 +183,49 @@
 
             <li class="education__item">
               <div class="education__meta">
-                <strong class="education__degree">M.Sc. Wirtschaftsinformatik</strong>
-                <span class="education__period">2015 – 2017</span>
+                <strong class="education__degree" data-editable="edu1-degree">M.Sc. Wirtschaftsinformatik</strong>
+                <span class="education__period" data-editable="edu1-period">2015 – 2017</span>
               </div>
-              <p class="education__institution">Universität Mannheim</p>
-              <p class="education__detail">Schwerpunkt: Enterprise Systems &amp; Digital Business</p>
+              <p class="education__institution" data-editable="edu1-institution">Universität Mannheim</p>
+              <p class="education__detail" data-editable="edu1-detail">Schwerpunkt: Enterprise Systems &amp; Digital Business</p>
             </li>
 
             <li class="education__item">
               <div class="education__meta">
-                <strong class="education__degree">B.Sc. Betriebswirtschaftslehre</strong>
-                <span class="education__period">2012 – 2015</span>
+                <strong class="education__degree" data-editable="edu2-degree">B.Sc. Betriebswirtschaftslehre</strong>
+                <span class="education__period" data-editable="edu2-period">2012 – 2015</span>
               </div>
-              <p class="education__institution">Hochschule München</p>
-              <p class="education__detail">Vertiefung: Marketing &amp; Vertriebsmanagement</p>
+              <p class="education__institution" data-editable="edu2-institution">Hochschule München</p>
+              <p class="education__detail" data-editable="edu2-detail">Vertiefung: Marketing &amp; Vertriebsmanagement</p>
             </li>
 
             <li class="education__item">
               <div class="education__meta">
-                <strong class="education__degree">Salesforce Certified Sales Cloud Consultant</strong>
-                <span class="education__period">2021</span>
+                <strong class="education__degree" data-editable="edu3-degree">Salesforce Certified Sales Cloud Consultant</strong>
+                <span class="education__period" data-editable="edu3-period">2021</span>
               </div>
-              <p class="education__institution">Salesforce Trailhead</p>
+              <p class="education__institution" data-editable="edu3-institution">Salesforce Trailhead</p>
             </li>
 
           </ul>
         </div>
       </article>
 
-      <!-- 6. KONTAKT -->
+      <!-- 5. KONTAKT -->
       <article class="card card--contact" aria-label="Kontakt">
         <div class="card__body card__body--center">
           <h2 class="card__title">Kontakt</h2>
-          <p class="card__text">
+          <p class="card__text" data-editable="contact-text">
             Du hast ein spannendes Projekt, eine offene Stelle oder möchtest einfach
             in Kontakt treten? Ich freue mich auf deine Nachricht.
           </p>
-          <a href="mailto:max.mustermann@example.com" class="contact__btn">
+          <a href="mailto:max.mustermann@example.com" class="contact__btn" data-editable="contact-email" data-editable-type="email">
             E-Mail schreiben
           </a>
           <div class="contact__links">
-            <a href="https://linkedin.com/in/maxmustermann" target="_blank" rel="noopener noreferrer" class="contact__link">LinkedIn</a>
+            <a href="https://linkedin.com/in/maxmustermann" target="_blank" rel="noopener noreferrer" class="contact__link" data-editable="contact-linkedin" data-editable-type="url">LinkedIn</a>
             <span class="contact__sep" aria-hidden="true">·</span>
-            <a href="https://xing.com/profile/maxmustermann" target="_blank" rel="noopener noreferrer" class="contact__link">Xing</a>
+            <a href="https://xing.com/profile/maxmustermann" target="_blank" rel="noopener noreferrer" class="contact__link" data-editable="contact-xing" data-editable-type="url">Xing</a>
           </div>
         </div>
       </article>
@@ -233,10 +233,28 @@
     </main>
 
     <footer class="portfolio__footer">
-      <p>&copy; 2026 Max Mustermann · Alle Rechte vorbehalten</p>
+      <p data-editable="footer-text">&copy; 2026 Max Mustermann · Alle Rechte vorbehalten</p>
     </footer>
 
   </section>
+
+  <!-- Admin toolbar (injected by JS, defined here for clarity) -->
+  <div id="adminBar" class="admin-bar" hidden>
+    <span class="admin-bar__label">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+      Bearbeitungsmodus
+    </span>
+    <div class="admin-bar__actions">
+      <button id="adminReset" class="admin-bar__btn admin-bar__btn--ghost">Zurücksetzen</button>
+      <button id="adminSave" class="admin-bar__btn admin-bar__btn--primary">Speichern</button>
+      <button id="adminExit" class="admin-bar__btn admin-bar__btn--exit" aria-label="Bearbeitungsmodus beenden">✕</button>
+    </div>
+  </div>
+
+  <!-- Floating admin toggle (triple-click on footer or ?admin in URL) -->
+  <button id="adminToggle" class="admin-toggle" aria-label="Admin-Modus aktivieren" title="Admin">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg>
+  </button>
 
   <script src="script.js"></script>
 </body>

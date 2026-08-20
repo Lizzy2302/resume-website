@@ -580,6 +580,151 @@ a {
 }
 
 /* ================================================
+   ADMIN — FLOATING TOGGLE BUTTON
+================================================ */
+.admin-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0,0,0,0.12);
+  color: rgba(0,0,0,0.25);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition), color var(--transition), transform var(--transition);
+}
+
+.admin-toggle:hover {
+  background: rgba(0,0,0,0.22);
+  color: rgba(0,0,0,0.55);
+  transform: scale(1.1);
+}
+
+/* ================================================
+   ADMIN — TOP BAR
+================================================ */
+.admin-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background: #1e293b;
+  color: #e2e8f0;
+  font-family: var(--font);
+  font-size: 0.82rem;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+  gap: 12px;
+}
+
+.admin-bar[hidden] { display: none; }
+
+.admin-bar__label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-weight: 500;
+  opacity: 0.85;
+}
+
+.admin-bar__actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.admin-bar__btn {
+  font-family: var(--font);
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  padding: 6px 14px;
+  transition: background var(--transition), opacity var(--transition);
+}
+
+.admin-bar__btn--primary {
+  background: var(--accent);
+  color: #fff;
+}
+.admin-bar__btn--primary:hover { background: var(--accent-hover); }
+
+.admin-bar__btn--ghost {
+  background: rgba(255,255,255,0.08);
+  color: #cbd5e1;
+}
+.admin-bar__btn--ghost:hover { background: rgba(255,255,255,0.15); }
+
+.admin-bar__btn--exit {
+  background: transparent;
+  color: #94a3b8;
+  padding: 6px 10px;
+  font-size: 1rem;
+  line-height: 1;
+}
+.admin-bar__btn--exit:hover { color: #f1f5f9; }
+
+/* ================================================
+   ADMIN — EDIT MODE STYLES
+================================================ */
+body.admin-mode {
+  /* Push page down so admin bar doesn't overlap content */
+  padding-top: 44px;
+}
+
+body.admin-mode [data-editable] {
+  outline: 2px dashed rgba(37, 99, 235, 0.4);
+  outline-offset: 3px;
+  border-radius: 4px;
+  cursor: text;
+  transition: outline-color 0.15s ease, background 0.15s ease;
+  min-width: 20px;
+  min-height: 1em;
+  display: inline-block;
+}
+
+body.admin-mode [data-editable]:hover {
+  outline-color: rgba(37, 99, 235, 0.75);
+  background: rgba(37, 99, 235, 0.04);
+}
+
+body.admin-mode [data-editable]:focus {
+  outline: 2px solid var(--accent);
+  background: rgba(37, 99, 235, 0.06);
+  border-radius: 4px;
+}
+
+/* Tags container shows a textarea-like editing area */
+body.admin-mode [data-editable-type="tags"] {
+  outline: 2px dashed rgba(37, 99, 235, 0.4);
+  outline-offset: 3px;
+  border-radius: 8px;
+  cursor: text;
+  display: flex;
+}
+
+/* Saved flash */
+@keyframes savedFlash {
+  0%   { background: rgba(22, 163, 74, 0.15); }
+  100% { background: transparent; }
+}
+
+.saved-flash {
+  animation: savedFlash 1s ease forwards;
+}
+
+/* ================================================
    ANIMATIONS
 ================================================ */
 @keyframes fadeInUp {
