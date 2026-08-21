@@ -57,17 +57,80 @@ const GH_REPO  = 'Lizzy2302/resume-website';
 const GH_FILE  = 'index.html';
 const TOKEN_KEY = 'portfolio_gh_token';
 
-const adminToggle = document.getElementById('adminToggle');
-const adminBar    = document.getElementById('adminBar');
-const adminSave   = document.getElementById('adminSave');
-const adminReset  = document.getElementById('adminReset');
-const adminExit   = document.getElementById('adminExit');
+const adminToggle  = document.getElementById('adminToggle');
+const adminBar     = document.getElementById('adminBar');
+const adminSave    = document.getElementById('adminSave');
+const adminReset   = document.getElementById('adminReset');
+const adminExit    = document.getElementById('adminExit');
+const adminAddCard = document.getElementById('adminAddCard');
+const grid         = document.getElementById('portfolioGrid');
+
+// ── Drag & drop state ─────────────────────────────────────────────────────────
+let dragSrc = null;
+
+function onDragStart(e) {
+  dragSrc = e.currentTarget;
+  dragSrc.classList.add('dragging');
+  e.dataTransfer.effectAllowed = 'move';
+}
+
+function onDragEnd() {
+  dragSrc && dragSrc.classList.remove('dragging');
+  document.querySelectorAll('.card').forEach((c) => {
+    c.classList.remove('drag-over-before', 'drag-over-after');
+  });
+  dragSrc = null;
+}
+
+function onDragOver(e) {
+  e.preventDefault();
+  e.dataTransfer.dropEffect = 'move';
+  const target = e.target.closest('.card');
+  if (!target || target === dragSrc) return;
+  document.querySelectorAll('.card').forEach((c) => {
+    c.classList.remove('drag-over-before', 'drag-over-after');
+  });
+  const rect = target.getBoundingClientRect();
+  const mid  = rect.top + rect.height / 2;
+  target.classList.add(e.clientY < mid ? 'drag-over-before' : 'drag-over-after');
+}
+
+function onDrop(e) {
+  e.preventDefault();
+  const target = e.target.closest('.card');
+  if (!target || target === dragSrc || !dragSrc) return;
+  const rect = target.getBoundingClientRect();
+  const before = e.clientY < rect.top + rect.height / 2;
+  grid.insertBefore(dragSrc, before ? target : target.nextSibling);
+  // Let cards flow in DOM order — remove any explicit grid placement
+  document.querySelectorAll('.card').forEach((c) => {
+    c.style.gridColumn = '';
+    c.style.gridRow    = '';
+  });
+}
+
+function initDragAndDrop() {
+  document.querySelectorAll('.card').forEach((card) => {
+    card.setAttribute('draggable', 'true');
+    card.addEventListener('dragstart', onDragStart);
+    card.addEventListener('dragend',   onDragEnd);
+  });
+  grid.addEventListener('dragover', onDragOver);
+  grid.addEventListener('drop',     onDrop);
+}
+
+function teardownDragAndDrop() {
+  document.querySelectorAll('.card').forEach((card) => {
+    card.removeAttribute('draggable');
+    card.removeEventListener('dragstart', onDragStart);
+    card.removeEventListener('dragend',   onDragEnd);
+  });
+  grid.removeEventListener('dragover', onDragOver);
+  grid.removeEventListener('drop',     onDrop);
+}
 
 // ── Edit mode: make fields editable ──────────────────────────────────────────
-function enterAdminMode() {
-  document.body.classList.add('admin-mode');
-  adminBar.hidden = false;
-
+function makeFieldsEditable() {
   document.querySelectorAll('[data-editable]').forEach((el) => {
     const type = el.dataset.editableType;
     if (type === 'tags') {
@@ -94,10 +157,57 @@ function enterAdminMode() {
   });
 }
 
+function injectCardControls() {
+  document.querySelectorAll('.card').forEach((card) => {
+    // Drag handle
+    const handle = document.createElement('div');
+    handle.className = 'card-drag-handle admin-injected';
+    handle.setAttribute('aria-hidden', 'true');
+    handle.innerHTML = '<svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><circle cx="4" cy="3" r="1.2"/><circle cx="10" cy="3" r="1.2"/><circle cx="4" cy="7" r="1.2"/><circle cx="10" cy="7" r="1.2"/><circle cx="4" cy="11" r="1.2"/><circle cx="10" cy="11" r="1.2"/></svg>';
+    card.appendChild(handle);
+
+    // Delete button
+    const del = document.createElement('button');
+    del.className = 'card-delete-btn admin-injected';
+    del.setAttribute('aria-label', 'Karte löschen');
+    del.textContent = '✕';
+    del.addEventListener('click', (e) => {
+      e.stopPropagation();
+      showDeleteConfirm(card, del);
+    });
+    card.appendChild(del);
+  });
+}
+
+function showDeleteConfirm(card, triggerBtn) {
+  const existing = card.querySelector('.card-delete-confirm');
+  if (existing) { existing.remove(); return; }
+
+  const pop = document.createElement('div');
+  pop.className = 'card-delete-confirm admin-injected';
+  pop.innerHTML = `
+    <span>Karte löschen?</span>
+    <button class="card-delete-confirm__yes">Ja</button>
+    <button class="card-delete-confirm__no">Nein</button>
+  `;
+  pop.querySelector('.card-delete-confirm__yes').addEventListener('click', () => card.remove());
+  pop.querySelector('.card-delete-confirm__no').addEventListener('click', () => pop.remove());
+  card.appendChild(pop);
+}
+
+function enterAdminMode() {
+  document.body.classList.add('admin-mode');
+  adminBar.hidden = false;
+  makeFieldsEditable();
+  injectCardControls();
+  initDragAndDrop();
+}
+
 // ── Edit mode: restore display state ─────────────────────────────────────────
 function exitAdminMode() {
   document.body.classList.remove('admin-mode');
   adminBar.hidden = true;
+  teardownDragAndDrop();
 
   document.querySelectorAll('[data-editable]').forEach((el) => {
     const type = el.dataset.editableType;
@@ -117,6 +227,174 @@ function exitAdminMode() {
     } else {
       el.removeAttribute('contenteditable');
     }
+  });
+
+  document.querySelectorAll('.admin-injected').forEach((el) => el.remove());
+}
+
+// ── Add card: type picker modal ───────────────────────────────────────────────
+const CARD_TYPES = [
+  { id: 'text',     label: 'Text',     desc: 'Titel + Freitext' },
+  { id: 'timeline', label: 'Timeline', desc: 'Werdegang-Einträge' },
+  { id: 'tags',     label: 'Tags',     desc: 'Skill-Gruppen mit Tags' },
+  { id: 'liste',    label: 'Liste',    desc: 'Aufzählungsliste' },
+  { id: 'kontakt',  label: 'Kontakt',  desc: 'E-Mail & Links' },
+];
+
+function buildCardHtml(type, title, uid) {
+  switch (type) {
+    case 'text':
+      return `<article class="card" aria-label="${title}">
+  <div class="card__body">
+    <h2 class="card__title" data-editable="${uid}-title">${title}</h2>
+    <p class="card__text" data-editable="${uid}-text">Dein Text hier…</p>
+  </div>
+</article>`;
+    case 'timeline':
+      return `<article class="card card--experience" aria-label="${title}">
+  <div class="card__body">
+    <h2 class="card__title" data-editable="${uid}-title">${title}</h2>
+    <ol class="timeline" reversed>
+      <li class="timeline__item">
+        <div class="timeline__meta">
+          <strong class="timeline__company" data-editable="${uid}-job1-company">Unternehmen</strong>
+          <span class="timeline__period" data-editable="${uid}-job1-period">2020 – heute</span>
+        </div>
+        <p class="timeline__role" data-editable="${uid}-job1-role">Position</p>
+        <ul class="timeline__bullets">
+          <li data-editable="${uid}-job1-bullet1">Aufgabe oder Leistung</li>
+        </ul>
+      </li>
+    </ol>
+  </div>
+</article>`;
+    case 'tags':
+      return `<article class="card card--skills" aria-label="${title}">
+  <div class="card__body">
+    <h2 class="card__title" data-editable="${uid}-title">${title}</h2>
+    <div class="skills__group">
+      <h3 class="skills__category" data-editable="${uid}-cat1">Kategorie</h3>
+      <div class="skills__tags" data-editable="${uid}-tags1" data-editable-type="tags">
+        <span class="tag">Tag 1</span>
+        <span class="tag">Tag 2</span>
+      </div>
+    </div>
+  </div>
+</article>`;
+    case 'liste':
+      return `<article class="card card--education" aria-label="${title}">
+  <div class="card__body">
+    <h2 class="card__title" data-editable="${uid}-title">${title}</h2>
+    <ul class="education__list">
+      <li class="education__item">
+        <div class="education__meta">
+          <strong class="education__degree" data-editable="${uid}-item1-heading">Eintrag</strong>
+          <span class="education__period" data-editable="${uid}-item1-period">2020</span>
+        </div>
+        <p class="education__institution" data-editable="${uid}-item1-sub">Unterpunkt</p>
+      </li>
+    </ul>
+  </div>
+</article>`;
+    case 'kontakt':
+      return `<article class="card card--contact" aria-label="${title}">
+  <div class="card__body card__body--center">
+    <h2 class="card__title" data-editable="${uid}-title">${title}</h2>
+    <p class="card__text" data-editable="${uid}-text">Schreib mir eine Nachricht.</p>
+    <a href="mailto:email@example.com" class="contact__btn" data-editable="${uid}-email" data-editable-type="email">E-Mail schreiben</a>
+    <div class="contact__links">
+      <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="contact__link" data-editable="${uid}-linkedin" data-editable-type="url">LinkedIn</a>
+    </div>
+  </div>
+</article>`;
+    default:
+      return '';
+  }
+}
+
+function showAddCardModal() {
+  const overlay = document.createElement('div');
+  overlay.className = 'modal-overlay admin-injected';
+  overlay.innerHTML = `
+    <div class="modal">
+      <h2 class="modal__title">Kartentyp wählen</h2>
+      <div class="modal__type-grid">
+        ${CARD_TYPES.map((t) => `
+          <button class="modal__type-btn" data-type="${t.id}">
+            <span class="modal__type-label">${t.label}</span>
+            <span class="modal__type-desc">${t.desc}</span>
+          </button>`).join('')}
+      </div>
+      <div class="modal__row" style="margin-top:20px;">
+        <label class="modal__label">Kartentitel</label>
+        <input id="newCardTitle" type="text" class="modal__input" placeholder="z.B. Projekte" value="" />
+      </div>
+      <div class="modal__actions">
+        <button id="modalCancel" class="admin-bar__btn admin-bar__btn--ghost">Abbrechen</button>
+        <button id="modalConfirm" class="admin-bar__btn admin-bar__btn--primary" disabled>Hinzufügen</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+
+  let selectedType = null;
+  const confirmBtn = overlay.querySelector('#modalConfirm');
+  const titleInput = overlay.querySelector('#newCardTitle');
+
+  overlay.querySelectorAll('.modal__type-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      overlay.querySelectorAll('.modal__type-btn').forEach((b) => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      selectedType = btn.dataset.type;
+      if (!titleInput.value) titleInput.value = btn.querySelector('.modal__type-label').textContent;
+      confirmBtn.disabled = false;
+    });
+  });
+
+  overlay.querySelector('#modalCancel').addEventListener('click', () => overlay.remove());
+  confirmBtn.addEventListener('click', () => {
+    if (!selectedType) return;
+    const title = titleInput.value.trim() || 'Neue Karte';
+    const uid   = 'card' + Date.now();
+    const html  = buildCardHtml(selectedType, title, uid);
+    const tmp   = document.createElement('div');
+    tmp.innerHTML = html;
+    const newCard = tmp.firstElementChild;
+    grid.appendChild(newCard);
+    overlay.remove();
+    // Make the new card's fields editable and inject controls
+    newCard.querySelectorAll('[data-editable]').forEach((el) => {
+      const type = el.dataset.editableType;
+      if (type === 'tags') {
+        const currentTags = Array.from(el.querySelectorAll('.tag')).map((t) => t.textContent.trim()).join(', ');
+        const input = document.createElement('input');
+        input.type = 'text'; input.value = currentTags;
+        input.placeholder = 'Tags kommagetrennt';
+        input.className = 'admin-tag-input';
+        input.style.cssText = 'width:100%;border:none;background:transparent;font:inherit;outline:none;padding:2px 4px;';
+        el.innerHTML = ''; el.appendChild(input);
+      } else if (type === 'email') {
+        el.contentEditable = 'true'; el.textContent = el.getAttribute('href').replace('mailto:', '');
+      } else if (type === 'url') {
+        el.contentEditable = 'true'; el.textContent = el.getAttribute('href');
+      } else {
+        el.contentEditable = 'true';
+      }
+    });
+    // Inject handle + delete
+    const handle = document.createElement('div');
+    handle.className = 'card-drag-handle admin-injected';
+    handle.setAttribute('aria-hidden', 'true');
+    handle.innerHTML = '<svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><circle cx="4" cy="3" r="1.2"/><circle cx="10" cy="3" r="1.2"/><circle cx="4" cy="7" r="1.2"/><circle cx="10" cy="7" r="1.2"/><circle cx="4" cy="11" r="1.2"/><circle cx="10" cy="11" r="1.2"/></svg>';
+    newCard.appendChild(handle);
+    const del = document.createElement('button');
+    del.className = 'card-delete-btn admin-injected';
+    del.setAttribute('aria-label', 'Karte löschen'); del.textContent = '✕';
+    del.addEventListener('click', (e) => { e.stopPropagation(); showDeleteConfirm(newCard, del); });
+    newCard.appendChild(del);
+    newCard.setAttribute('draggable', 'true');
+    newCard.addEventListener('dragstart', onDragStart);
+    newCard.addEventListener('dragend',   onDragEnd);
   });
 }
 
@@ -176,6 +454,39 @@ function applyEditsToHtml(html, edits) {
     }
   }
   return result;
+}
+
+// ── Serialize current grid to HTML ────────────────────────────────────────────
+function serializeGrid() {
+  const clone = grid.cloneNode(true);
+  clone.querySelectorAll('.admin-injected').forEach((el) => el.remove());
+  clone.querySelectorAll('[contenteditable]').forEach((el) => el.removeAttribute('contenteditable'));
+  clone.querySelectorAll('[draggable]').forEach((el) => el.removeAttribute('draggable'));
+  clone.querySelectorAll('[data-editable-type="tags"]').forEach((el) => {
+    const input = el.querySelector('.admin-tag-input');
+    if (input) {
+      el.innerHTML = input.value.split(',').map((t) => t.trim()).filter(Boolean)
+        .map((t) => `<span class="tag">${t}</span>`).join('\n              ');
+    }
+  });
+  clone.querySelectorAll('[data-editable-type="email"]').forEach((el) => {
+    const val = el.textContent.trim();
+    el.setAttribute('href', 'mailto:' + val);
+    el.textContent = 'E-Mail schreiben';
+  });
+  clone.querySelectorAll('[data-editable-type="url"]').forEach((el) => {
+    const val = el.textContent.trim();
+    el.setAttribute('href', val);
+  });
+  return clone.outerHTML;
+}
+
+// ── Replace grid block in fetched HTML ────────────────────────────────────────
+function replaceGridInHtml(html, newGridHtml) {
+  return html.replace(
+    /(<main\b[^>]*\bid="portfolioGrid"[^>]*>)[\s\S]*?(<\/main>)/,
+    `$1\n\n      ${newGridHtml}\n\n    $2`
+  );
 }
 
 // ── GitHub API: fetch current file SHA + content ──────────────────────────────
@@ -261,7 +572,8 @@ function promptForToken() {
 
 // ── Save: commit to GitHub ────────────────────────────────────────────────────
 async function saveToGitHub() {
-  const edits = collectEdits();
+  // Serialize current layout before exiting admin mode
+  const newGridHtml = serializeGrid();
 
   let token = localStorage.getItem(TOKEN_KEY);
   if (token) token = token.replace(/[^\x21-\x7e]/g, '').trim();
@@ -280,8 +592,8 @@ async function saveToGitHub() {
     const file = await ghGetFile(token);
     const currentHtml = decodeURIComponent(escape(atob(file.content.replace(/\n/g, ''))));
 
-    // 2. Patch HTML with edits
-    const newHtml = applyEditsToHtml(currentHtml, edits);
+    // 2. Replace entire grid block (handles reorder, add, delete)
+    const newHtml = replaceGridInHtml(currentHtml, newGridHtml);
 
     // 3. Commit
     await ghPutFile(token, file.sha, newHtml);
@@ -330,5 +642,6 @@ adminToggle.addEventListener('click', () => {
 adminSave.addEventListener('click', saveToGitHub);
 adminExit.addEventListener('click', exitAdminMode);
 adminReset.addEventListener('click', resetToken);
+adminAddCard.addEventListener('click', showAddCardModal);
 
 if (new URLSearchParams(location.search).has('admin')) enterAdminMode();
