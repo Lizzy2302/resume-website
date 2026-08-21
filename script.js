@@ -215,6 +215,40 @@ function enterAdminMode() {
     });
     wrap.appendChild(del);
   });
+
+  // "+ Add text field" button at the bottom of each card
+  document.querySelectorAll('.card__body').forEach((body) => {
+    const btn = document.createElement('button');
+    btn.className = 'add-field-btn admin-injected';
+    btn.textContent = '+ Add text field';
+    btn.addEventListener('click', () => {
+      const uid = 'custom-' + Date.now();
+      const p = document.createElement('p');
+      p.className = 'card__text';
+      p.dataset.editable = uid;
+      p.contentEditable = 'true';
+      p.textContent = 'New text field…';
+      p.addEventListener('focus', onEditableFocus);
+      p.addEventListener('blur',  onEditableBlur);
+      p.addEventListener('keyup', onEditableKeyUp);
+
+      const wrap = document.createElement('span');
+      wrap.className = 'editable-wrap admin-injected';
+      wrap.appendChild(p);
+
+      const del = document.createElement('button');
+      del.className = 'field-delete-btn admin-injected';
+      del.title = 'Delete field';
+      del.innerHTML = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+      del.addEventListener('mousedown', (e) => e.preventDefault());
+      del.addEventListener('click', () => wrap.remove());
+      wrap.appendChild(del);
+
+      body.insertBefore(wrap, btn);
+      p.focus();
+    });
+    body.appendChild(btn);
+  });
 }
 
 // ── Edit mode: restore display state ─────────────────────────────────────────
