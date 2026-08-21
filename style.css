@@ -747,13 +747,14 @@ body.admin-mode .card {
   align-items: center;
   justify-content: center;
   cursor: grab;
-  opacity: 0;
+  opacity: 1;
   transition: opacity var(--transition), background var(--transition);
   z-index: 10;
 }
 
-.card:hover .card-drag-handle {
-  opacity: 1;
+.card-drag-handle:hover {
+  background: rgba(0,0,0,0.14);
+  color: var(--text-primary);
 }
 
 .card-drag-handle:active {
@@ -777,13 +778,9 @@ body.admin-mode .card {
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0;
-  transition: opacity var(--transition), background var(--transition), color var(--transition);
-  z-index: 10;
-}
-
-.card:hover .card-delete-btn {
   opacity: 1;
+  transition: background var(--transition), color var(--transition);
+  z-index: 10;
 }
 
 .card-delete-btn:hover {

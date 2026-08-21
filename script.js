@@ -66,15 +66,18 @@ const adminAddCard = document.getElementById('adminAddCard');
 const grid         = document.getElementById('portfolioGrid');
 
 // ── Drag & drop state ─────────────────────────────────────────────────────────
-let dragSrc = null;
+let dragSrc    = null;
+let dragArmed  = false; // only drag when mousedown was on the handle
 
 function onDragStart(e) {
+  if (!dragArmed) { e.preventDefault(); return; }
   dragSrc = e.currentTarget;
   dragSrc.classList.add('dragging');
   e.dataTransfer.effectAllowed = 'move';
 }
 
 function onDragEnd() {
+  dragArmed = false;
   dragSrc && dragSrc.classList.remove('dragging');
   document.querySelectorAll('.card').forEach((c) => {
     c.classList.remove('drag-over-before', 'drag-over-after');
@@ -102,7 +105,6 @@ function onDrop(e) {
   const rect = target.getBoundingClientRect();
   const before = e.clientY < rect.top + rect.height / 2;
   grid.insertBefore(dragSrc, before ? target : target.nextSibling);
-  // Let cards flow in DOM order — remove any explicit grid placement
   document.querySelectorAll('.card').forEach((c) => {
     c.style.gridColumn = '';
     c.style.gridRow    = '';
@@ -120,6 +122,7 @@ function initDragAndDrop() {
 }
 
 function teardownDragAndDrop() {
+  dragArmed = false;
   document.querySelectorAll('.card').forEach((card) => {
     card.removeAttribute('draggable');
     card.removeEventListener('dragstart', onDragStart);
@@ -159,14 +162,13 @@ function makeFieldsEditable() {
 
 function injectCardControls() {
   document.querySelectorAll('.card').forEach((card) => {
-    // Drag handle
     const handle = document.createElement('div');
     handle.className = 'card-drag-handle admin-injected';
     handle.setAttribute('aria-hidden', 'true');
     handle.innerHTML = '<svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><circle cx="4" cy="3" r="1.2"/><circle cx="10" cy="3" r="1.2"/><circle cx="4" cy="7" r="1.2"/><circle cx="10" cy="7" r="1.2"/><circle cx="4" cy="11" r="1.2"/><circle cx="10" cy="11" r="1.2"/></svg>';
+    handle.addEventListener('mousedown', () => { dragArmed = true; });
     card.appendChild(handle);
 
-    // Delete button
     const del = document.createElement('button');
     del.className = 'card-delete-btn admin-injected';
     del.setAttribute('aria-label', 'Karte löschen');
@@ -386,6 +388,7 @@ function showAddCardModal() {
     handle.className = 'card-drag-handle admin-injected';
     handle.setAttribute('aria-hidden', 'true');
     handle.innerHTML = '<svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><circle cx="4" cy="3" r="1.2"/><circle cx="10" cy="3" r="1.2"/><circle cx="4" cy="7" r="1.2"/><circle cx="10" cy="7" r="1.2"/><circle cx="4" cy="11" r="1.2"/><circle cx="10" cy="11" r="1.2"/></svg>';
+    handle.addEventListener('mousedown', () => { dragArmed = true; });
     newCard.appendChild(handle);
     const del = document.createElement('button');
     del.className = 'card-delete-btn admin-injected';
