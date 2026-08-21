@@ -487,8 +487,8 @@ function serializeGrid() {
 // ── Replace grid block in fetched HTML ────────────────────────────────────────
 function replaceGridInHtml(html, newGridHtml) {
   return html.replace(
-    /(<main\b[^>]*\bid="portfolioGrid"[^>]*>)[\s\S]*?(<\/main>)/,
-    `$1\n\n      ${newGridHtml}\n\n    $2`
+    /<main\b[^>]*\bid="portfolioGrid"[^>]*>[\s\S]*?<\/main>/,
+    newGridHtml
   );
 }
 
