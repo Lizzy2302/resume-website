@@ -406,7 +406,7 @@ async function saveToGitHub() {
   }
 
   // Update button state
-  adminSave.textContent = '⏳ Wird gespeichert…';
+  adminSave.textContent = '⏳ Saving…';
   adminSave.disabled = true;
 
   try {
@@ -431,12 +431,12 @@ async function saveToGitHub() {
       box-shadow:0 4px 20px rgba(0,0,0,0.2);z-index:3000;
       animation:fadeInUp 0.3s ease both;
     `;
-    banner.textContent = '✓ Gespeichert – live in ~1 Minute auf GitHub Pages';
+    banner.textContent = '✓ Saved — live in ~1 min on GitHub Pages';
     document.body.appendChild(banner);
     setTimeout(() => banner.remove(), 5000);
 
   } catch (err) {
-    adminSave.textContent = 'Speichern';
+    adminSave.textContent = 'Save';
     adminSave.disabled = false;
 
     // If token was wrong, clear it so user can re-enter
@@ -447,7 +447,7 @@ async function saveToGitHub() {
     alert(`Fehler beim Speichern:\n${err.message}`);
   }
 
-  adminSave.textContent = 'Speichern';
+  adminSave.textContent = 'Save';
   adminSave.disabled = false;
 }
 

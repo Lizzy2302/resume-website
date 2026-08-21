@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,15 +8,12 @@
 </head>
 <body>
 
-  <!-- ================================================
-       ANSICHT 1: LANDING PAGE
-  ================================================ -->
-  <section id="landing" class="landing" aria-label="Willkommen">
+  <section id="landing" class="landing" aria-label="Welcome">
 
     <div class="landing__bg">
       <img
         src="images/hero.jpg"
-        alt="Hero Hintergrundbild"
+        alt="Hero background"
         class="landing__bg-img"
         aria-hidden="true"
       />
@@ -24,16 +21,16 @@
     </div>
 
     <div class="landing__content">
-      <p class="landing__eyebrow" data-editable="eyebrow">Business &amp; Sales Consultant</span></div></span></div></p>
-      <h1 class="landing__name" data-editable="name">Luca<br>Zimmermann</h1>
+      <p class="landing__eyebrow" data-editable="eyebrow">Digital Value Advisor</p>
+      <h1 class="landing__name" data-editable="name">Luca<br />Zimmermann</h1>
       <p class="landing__tagline" data-editable="tagline">
-        Ich bringe Softwareunternehmen näher an ihre Kunden –
-        mit klarer Strategie, tiefem Produktverständnis und Überzeugungskraft.
+        Translating complex software into tangible business value —
+        with clear strategy, deep product understanding, and a passion for customer success.
       </p>
     </div>
 
-    <button class="landing__cta" id="ctaBtn" aria-label="Zum Portfolio">
-      <span class="landing__cta-text">Entdecken</span>
+    <button class="landing__cta" id="ctaBtn" aria-label="View portfolio">
+      <span class="landing__cta-text">Explore</span>
       <span class="landing__cta-arrow" aria-hidden="true">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="12" y1="5" x2="12" y2="19"/>
@@ -45,57 +42,56 @@
   </section>
 
 
-  <!-- ================================================
-       ANSICHT 2: KACHEL-ÜBERSICHT
-  ================================================ -->
   <section id="portfolio" class="portfolio" aria-label="Portfolio">
 
     <header class="portfolio__header">
-      <button class="back-btn" id="backBtn" aria-label="Zurück zur Startseite">
+      <button class="back-btn" id="backBtn" aria-label="Back to home">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <line x1="19" y1="12" x2="5" y2="12"/>
           <polyline points="12 19 5 12 12 5"/>
         </svg>
-        Startseite
+        Home
       </button>
       <span class="portfolio__header-name" data-editable="header-name">Luca Zimmermann</span>
     </header>
 
     <main class="grid" id="portfolioGrid">
 
-      <!-- 1. ÜBER MICH -->
-      <article class="card card--about" aria-label="Über mich">
+      <!-- ABOUT -->
+      <article class="card card--about" aria-label="About">
         <div class="card__body">
-          <h2 class="card__title">Über mich</h2>
+          <h2 class="card__title" data-editable="about-title">About me</h2>
           <div class="about__inner">
             <img
               src="images/portrait.jpg"
-              alt="Portraitfoto Luca Zimmermann"
+              alt="Portrait Luca Zimmermann"
               class="about__portrait"
               loading="lazy"
             />
             <p class="card__text" data-editable="about-text">
-              I'm Luca, 25 years old and currently working as a Digital Value Advisor. In my role, I translate complex product features into tangible business value for our customers, focussing on customers in the digital manufacturing industries and Customer Experience area. I'm driven by a genuine passion for our customers' success.&nbsp;<div>&nbsp;In my freetime, I enjoy going to the gym, play a round of padel with friends or go for a run. If I'm not active you'll probably find me reading a book or watching a show.
-            </div></div></p>
+              I'm Luca, 25 years old and currently working as a Digital Value Advisor. In my role, I translate complex product features into tangible business value for our customers, focussing on customers in the digital manufacturing industries and Customer Experience area. I'm driven by a genuine passion for our customers' success.
+
+              In my free time, I enjoy going to the gym, play a round of padel with friends or go for a run. If I'm not active you'll probably find me reading a book or watching a show.
+            </p>
           </div>
         </div>
       </article>
 
-      <!-- 2. WERDEGANG -->
-      <article class="card card--experience" aria-label="Berufserfahrung">
+      <!-- EXPERIENCE -->
+      <article class="card card--experience" aria-label="Experience">
         <div class="card__body">
-          <h2 class="card__title">Werdegang</h2>
+          <h2 class="card__title" data-editable="experience-title">Experience</h2>
           <ol class="timeline" reversed>
 
             <li class="timeline__item">
               <div class="timeline__meta">
                 <strong class="timeline__company" data-editable="job1-company">SAP Deutschland SE und Co KG</strong>
-                <span class="timeline__period" data-editable="job1-period">2022 – heute</span>
+                <span class="timeline__period" data-editable="job1-period">2025 – present</span>
               </div>
               <p class="timeline__role" data-editable="job1-role">Junior Value Advisor</p>
               <ul class="timeline__bullets">
-                <li data-editable="job1-bullet1"><p class="MsoNormal" style="margin: 6pt 0cm 0cm; line-height: 17.3333px; font-size: 10pt; font-family: &quot;72 Brand&quot;, sans-serif; color: rgb(0, 0, 0);">Digital Value Advisory Associate, responsible to enhance the DVA footprint in the Customer Experience LoB as well as the DMI Industry. Trusted advisor for our Customers, Account Executives, Territory Ecosystem Managers and Solution Sellers.<o:p></o:p></p><div style="text-align: left;"></div></o:p></p><div style="text-align: left;"></div></o:p></p><div style="text-align: left;"></div></o:p></p><div style="text-align: left;"></div></o:p></p><div style="text-align: left;"></div></li>
-                <li data-editable="job1-bullet2"></li>
+                <li data-editable="job1-bullet1">Digital Value Advisory Associate, responsible for enhancing the DVA footprint in the Customer Experience LoB and DMI Industry.</li>
+                <li data-editable="job1-bullet2">Trusted advisor for customers, account executives, territory ecosystem managers, and solution sellers.</li>
               </ul>
             </li>
 
@@ -127,24 +123,24 @@
         </div>
       </article>
 
-      <!-- 3. SKILLS -->
-      <article class="card card--skills" aria-label="Fähigkeiten">
+      <!-- SKILLS -->
+      <article class="card card--skills" aria-label="Skills">
         <div class="card__body">
-          <h2 class="card__title">Skills</h2>
+          <h2 class="card__title" data-editable="skills-title">Skills</h2>
 
           <div class="skills__group">
-            <h3 class="skills__category">Fachlich</h3>
+            <h3 class="skills__category" data-editable="skills-cat1">Professional</h3>
             <div class="skills__tags" data-editable="skills-fachlich" data-editable-type="tags">
               <span class="tag">Business Cases</span>
               <span class="tag">TCO</span>
               <span class="tag">Storytelling</span>
               <span class="tag">Customer Presenting</span>
-              <span class="tag">C-Level presentations</span>
+              <span class="tag">C-Level Presentations</span>
             </div>
           </div>
 
           <div class="skills__group">
-            <h3 class="skills__category">Tools &amp; Software</h3>
+            <h3 class="skills__category" data-editable="skills-cat2">Tools &amp; Software</h3>
             <div class="skills__tags" data-editable="skills-tools" data-editable-type="tags">
               <span class="tag">Microsoft Office</span>
               <span class="tag">VS Code</span>
@@ -155,7 +151,7 @@
           </div>
 
           <div class="skills__group">
-            <h3 class="skills__category">Sprachen</h3>
+            <h3 class="skills__category" data-editable="skills-cat3">Languages</h3>
             <div class="skills__tags" data-editable="skills-sprachen" data-editable-type="tags">
               <span class="tag">German (native)</span>
               <span class="tag">English (fluent)</span>
@@ -165,28 +161,28 @@
         </div>
       </article>
 
-      <!-- 4. AUSBILDUNG -->
-      <article class="card card--education" aria-label="Ausbildung">
+      <!-- EDUCATION -->
+      <article class="card card--education" aria-label="Education">
         <div class="card__body">
-          <h2 class="card__title">Ausbildung</h2>
+          <h2 class="card__title" data-editable="education-title">Education</h2>
           <ul class="education__list">
 
             <li class="education__item">
               <div class="education__meta">
-                <strong class="education__degree" data-editable="edu1-degree">M.Sc. Wirtschaftsinformatik</strong>
+                <strong class="education__degree" data-editable="edu1-degree">M.Sc. Business Informatics</strong>
                 <span class="education__period" data-editable="edu1-period">2015 – 2017</span>
               </div>
-              <p class="education__institution" data-editable="edu1-institution">Universität Mannheim</p>
-              <p class="education__detail" data-editable="edu1-detail">Schwerpunkt: Enterprise Systems &amp; Digital Business</p>
+              <p class="education__institution" data-editable="edu1-institution">University of Mannheim</p>
+              <p class="education__detail" data-editable="edu1-detail">Focus: Enterprise Systems &amp; Digital Business</p>
             </li>
 
             <li class="education__item">
               <div class="education__meta">
-                <strong class="education__degree" data-editable="edu2-degree">B.A Digital Business Information</strong>
-                <span class="education__period" data-editable="edu2-period">2022 - 2025</span>
+                <strong class="education__degree" data-editable="edu2-degree">B.Sc. Business Administration</strong>
+                <span class="education__period" data-editable="edu2-period">2012 – 2015</span>
               </div>
-              <p class="education__institution" data-editable="edu2-institution">DHBW Mannheim<br></p>
-              <p class="education__detail" data-editable="edu2-detail"></p>
+              <p class="education__institution" data-editable="edu2-institution">Munich University of Applied Sciences</p>
+              <p class="education__detail" data-editable="edu2-detail">Focus: Marketing &amp; Sales Management</p>
             </li>
 
             <li class="education__item">
@@ -201,13 +197,15 @@
         </div>
       </article>
 
-      <!-- 5. KONTAKT -->
-      <article class="card card--contact" aria-label="Kontakt">
+      <!-- CONTACT -->
+      <article class="card card--contact" aria-label="Contact">
         <div class="card__body card__body--center">
-          <h2 class="card__title">Kontakt</h2>
+          <h2 class="card__title" data-editable="contact-title">Contact</h2>
           <p class="card__text" data-editable="contact-text">
-            Thank you very much for considering me for this role.&nbsp;<div>I am looking forward to talk to you!</div></div></div></div></p>
-          <a href="mailto:luca.zimmermann01@sap.com" class="contact__btn" data-editable="contact-email" data-editable-type="email">E-Mail schreiben</a>
+            Have an interesting project, an open role, or just want to connect?
+            I'd love to hear from you.
+          </p>
+          <a href="mailto:luca.zimmermann01@sap.com" class="contact__btn" data-editable="contact-email" data-editable-type="email">Send an email</a>
           <div class="contact__links">
             <a href="https://linkedin.com/in/maxmustermann" target="_blank" rel="noopener noreferrer" class="contact__link" data-editable="contact-linkedin" data-editable-type="url">LinkedIn</a>
             <span class="contact__sep" aria-hidden="true">·</span>
@@ -219,7 +217,7 @@
     </main>
 
     <footer class="portfolio__footer">
-      <p data-editable="footer-text">© 2026 Luca Zimmermann</p>
+      <p data-editable="footer-text">&copy; 2026 Luca Zimmermann · All rights reserved</p>
     </footer>
 
   </section>
@@ -227,16 +225,16 @@
   <div id="adminBar" class="admin-bar" hidden>
     <span class="admin-bar__label">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-      Bearbeitungsmodus
+      Edit mode
     </span>
     <div class="admin-bar__actions">
-      <button id="adminReset" class="admin-bar__btn admin-bar__btn--ghost">Token löschen</button>
-      <button id="adminSave" class="admin-bar__btn admin-bar__btn--primary">Speichern</button>
-      <button id="adminExit" class="admin-bar__btn admin-bar__btn--exit" aria-label="Bearbeitungsmodus beenden">✕</button>
+      <button id="adminReset" class="admin-bar__btn admin-bar__btn--ghost">Clear token</button>
+      <button id="adminSave" class="admin-bar__btn admin-bar__btn--primary">Save</button>
+      <button id="adminExit" class="admin-bar__btn admin-bar__btn--exit" aria-label="Exit edit mode">✕</button>
     </div>
   </div>
 
-  <button id="adminToggle" class="admin-toggle" aria-label="Admin-Modus aktivieren" title="Admin">
+  <button id="adminToggle" class="admin-toggle" aria-label="Activate admin mode" title="Admin">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg>
   </button>
 
