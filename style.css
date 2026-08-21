@@ -720,6 +720,50 @@ body.admin-mode [data-editable-type="tags"] {
   100% { background: transparent; }
 }
 
+/* ================================================
+   ADMIN — FIELD DELETE BUTTON
+================================================ */
+.editable-wrap {
+  position: relative;
+  display: contents;
+}
+
+body.admin-mode .editable-wrap {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+body.admin-mode .editable-wrap > [data-editable] {
+  flex: 1;
+}
+
+.field-delete-btn {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(220, 38, 38, 0.12);
+  color: #dc2626;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.15s, background 0.15s;
+  padding: 0;
+  align-self: center;
+}
+
+body.admin-mode .editable-wrap:hover .field-delete-btn {
+  opacity: 1;
+}
+
+.field-delete-btn:hover {
+  background: rgba(220, 38, 38, 0.25);
+}
+
 .saved-flash {
   animation: savedFlash 1s ease forwards;
 }

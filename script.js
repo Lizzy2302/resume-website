@@ -57,6 +57,8 @@ const GH_REPO  = 'Lizzy2302/resume-website';
 const GH_FILE  = 'index.html';
 const TOKEN_KEY = 'portfolio_gh_token';
 
+const deletedKeys = new Set();
+
 const adminToggle = document.getElementById('adminToggle');
 const adminBar    = document.getElementById('adminBar');
 const adminSave   = document.getElementById('adminSave');
@@ -189,6 +191,23 @@ function enterAdminMode() {
       el.addEventListener('blur',   onEditableBlur);
       el.addEventListener('keyup',  onEditableKeyUp);
     }
+
+    // Delete button
+    const wrap = document.createElement('span');
+    wrap.className = 'editable-wrap admin-injected';
+    el.parentNode.insertBefore(wrap, el);
+    wrap.appendChild(el);
+
+    const del = document.createElement('button');
+    del.className = 'field-delete-btn admin-injected';
+    del.title = 'Feld löschen';
+    del.innerHTML = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+    del.addEventListener('mousedown', (e) => e.preventDefault());
+    del.addEventListener('click', () => {
+      deletedKeys.add(el.dataset.editable);
+      wrap.remove();
+    });
+    wrap.appendChild(del);
   });
 }
 
@@ -219,7 +238,13 @@ function exitAdminMode() {
     } else {
       el.removeAttribute('contenteditable');
     }
+    // Unwrap from editable-wrap, putting the element back in place
+    const wrap = el.closest('.editable-wrap');
+    if (wrap) wrap.replaceWith(el);
   });
+
+  document.querySelectorAll('.admin-injected').forEach((el) => el.remove());
+  deletedKeys.clear();
 }
 
 // ── Collect edited values from live DOM ───────────────────────────────────────
@@ -276,6 +301,13 @@ function applyEditsToHtml(html, edits) {
         (m, open, _old, close) => `${open}${value}${close}`
       );
     }
+  }
+  // Remove deleted fields entirely from the HTML
+  for (const key of deletedKeys) {
+    result = result.replace(
+      new RegExp(`<[^>]+data-editable="${key}"[^>]*>[\\s\\S]*?<\\/[^>]+>\\s*`),
+      ''
+    );
   }
   return result;
 }
