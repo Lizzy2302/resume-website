@@ -102,7 +102,13 @@ function createToolbar() {
 
   t.querySelectorAll('button[data-cmd]').forEach((btn) => {
     btn.addEventListener('click', () => {
-      document.execCommand(btn.dataset.cmd, false, null);
+      const cmd = btn.dataset.cmd;
+      if (cmd === 'justifyLeft' || cmd === 'justifyCenter' || cmd === 'justifyRight') {
+        const el = document.activeElement;
+        if (el) el.style.textAlign = { justifyLeft: 'left', justifyCenter: 'center', justifyRight: 'right' }[cmd];
+      } else {
+        document.execCommand(cmd, false, null);
+      }
       updateToolbarState();
     });
   });
