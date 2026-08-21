@@ -725,228 +725,6 @@ body.admin-mode [data-editable-type="tags"] {
 }
 
 /* ================================================
-   ADMIN — LAYOUT EDITOR (drag, delete, add card)
-================================================ */
-
-/* Cards need a positioning context for overlaid controls */
-body.admin-mode .card {
-  position: relative;
-}
-
-/* Drag handle — bottom-left corner */
-.card-drag-handle {
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-  width: 26px;
-  height: 26px;
-  border-radius: 6px;
-  background: rgba(0,0,0,0.06);
-  color: var(--text-muted);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: grab;
-  opacity: 1;
-  transition: opacity var(--transition), background var(--transition);
-  z-index: 10;
-}
-
-.card-drag-handle:hover {
-  background: rgba(0,0,0,0.14);
-  color: var(--text-primary);
-}
-
-.card-drag-handle:active {
-  cursor: grabbing;
-}
-
-/* Delete button — top-right corner */
-.card-delete-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  border: none;
-  background: rgba(0,0,0,0.06);
-  color: var(--text-muted);
-  font-size: 0.8rem;
-  line-height: 1;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 1;
-  transition: background var(--transition), color var(--transition);
-  z-index: 10;
-}
-
-.card-delete-btn:hover {
-  background: #fee2e2;
-  color: #dc2626;
-}
-
-/* Delete confirm popover */
-.card-delete-confirm {
-  position: absolute;
-  top: 40px;
-  right: 10px;
-  z-index: 20;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: #fff;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 8px 12px;
-  box-shadow: var(--shadow-md);
-  font-size: 0.8rem;
-  white-space: nowrap;
-}
-
-.card-delete-confirm__yes,
-.card-delete-confirm__no {
-  font-family: var(--font);
-  font-size: 0.78rem;
-  font-weight: 600;
-  border: none;
-  border-radius: 5px;
-  padding: 4px 10px;
-  cursor: pointer;
-}
-
-.card-delete-confirm__yes {
-  background: #dc2626;
-  color: #fff;
-}
-
-.card-delete-confirm__no {
-  background: var(--bg);
-  color: var(--text-secondary);
-}
-
-/* Drag states */
-.card.dragging {
-  opacity: 0.4;
-  cursor: grabbing;
-}
-
-.card.drag-over-before {
-  box-shadow: 0 -3px 0 var(--accent), var(--shadow-sm);
-}
-
-.card.drag-over-after {
-  box-shadow: 0 3px 0 var(--accent), var(--shadow-sm);
-}
-
-/* ================================================
-   ADMIN — ADD CARD MODAL
-================================================ */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 2000;
-  background: rgba(0,0,0,0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font);
-}
-
-.modal {
-  background: #fff;
-  border-radius: 16px;
-  padding: 28px 24px;
-  max-width: 480px;
-  width: 90%;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.25);
-}
-
-.modal__title {
-  font-size: 1rem;
-  font-weight: 700;
-  margin-bottom: 16px;
-}
-
-.modal__type-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  margin-bottom: 4px;
-}
-
-.modal__type-btn {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  padding: 10px 8px;
-  border: 1.5px solid var(--border);
-  border-radius: var(--radius-sm);
-  background: var(--bg);
-  cursor: pointer;
-  text-align: left;
-  font-family: var(--font);
-  transition: border-color var(--transition), background var(--transition);
-}
-
-.modal__type-btn:hover {
-  border-color: var(--accent);
-  background: #eff6ff;
-}
-
-.modal__type-btn.selected {
-  border-color: var(--accent);
-  background: #eff6ff;
-  box-shadow: 0 0 0 3px rgba(37,99,235,0.15);
-}
-
-.modal__type-label {
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-.modal__type-desc {
-  font-size: 0.75rem;
-  color: var(--text-muted);
-}
-
-.modal__label {
-  display: block;
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin-bottom: 6px;
-}
-
-.modal__input {
-  width: 100%;
-  padding: 9px 12px;
-  border: 1.5px solid var(--border);
-  border-radius: var(--radius-sm);
-  font: inherit;
-  font-size: 0.875rem;
-  box-sizing: border-box;
-  outline: none;
-  transition: border-color var(--transition);
-}
-
-.modal__input:focus {
-  border-color: var(--accent);
-}
-
-.modal__actions {
-  display: flex;
-  gap: 10px;
-  justify-content: flex-end;
-  margin-top: 20px;
-}
-
-/* ================================================
    ANIMATIONS
 ================================================ */
 @keyframes fadeInUp {
@@ -993,4 +771,73 @@ body.admin-mode .card {
   .landing__name {
     font-size: clamp(3rem, 16vw, 5rem);
   }
+}
+
+/* ================================================
+   TEXT FORMATTING TOOLBAR
+================================================ */
+.format-toolbar {
+  position: absolute;
+  z-index: 3000;
+  display: none;
+  align-items: center;
+  gap: 2px;
+  padding: 5px 8px;
+  background: #1e293b;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+  font-family: var(--font);
+  white-space: nowrap;
+}
+
+.format-toolbar button {
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 5px;
+  background: transparent;
+  color: #cbd5e1;
+  font-family: var(--font);
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, color 0.15s;
+}
+
+.format-toolbar button:hover,
+.format-toolbar button.active {
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+}
+
+.format-toolbar select {
+  height: 26px;
+  border: none;
+  border-radius: 5px;
+  background: rgba(255,255,255,0.1);
+  color: #cbd5e1;
+  font-family: var(--font);
+  font-size: 0.78rem;
+  padding: 0 4px;
+  cursor: pointer;
+  outline: none;
+}
+
+.format-toolbar input[type="color"] {
+  width: 26px;
+  height: 26px;
+  border: none;
+  border-radius: 5px;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.format-toolbar__sep {
+  width: 1px;
+  height: 18px;
+  background: rgba(255,255,255,0.15);
+  margin: 0 4px;
 }
