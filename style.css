@@ -295,15 +295,15 @@ a {
 }
 
 /* Grid placement
-   Row 1: About (8) + Skills (4)
+   Row 1: About (8) + Contact (4)
    Row 2: Experience (12)
-   Row 3: Education (5) + Contact (7)
+   Row 3: Education (7) + Skills (5)
 */
 .card--about      { grid-column: span 8;  grid-row: 1; }
-.card--skills     { grid-column: span 4;  grid-row: 1; }
+.card--contact    { grid-column: span 4;  grid-row: 1; }
 .card--experience { grid-column: span 12; grid-row: 2; }
 .card--education  { grid-column: span 7;  grid-row: 3; }
-.card--contact    { grid-column: span 5;  grid-row: 3; }
+.card--skills     { grid-column: span 5;  grid-row: 3; }
 
 /* ================================================
    CARDS
