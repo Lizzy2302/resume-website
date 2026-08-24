@@ -540,13 +540,15 @@ a {
    CONTACT CARD
 ================================================ */
 .contact__btn {
-  display: inline-block;
+  display: block;
+  width: 100%;
+  text-align: center;
   background: var(--accent);
   color: #ffffff;
   font-family: var(--font);
   font-size: 0.9rem;
   font-weight: 600;
-  padding: 13px 32px;
+  padding: 13px 16px;
   border-radius: 999px;
   transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
   box-shadow: 0 4px 16px rgba(37, 99, 235, 0.30);
